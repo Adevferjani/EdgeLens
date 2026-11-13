@@ -141,7 +141,9 @@ splits/       fixed UTKFace data split
 docs/         architecture, reproducibility and results
 ```
 
-Third-party components and licences: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+The source code is licensed under the MIT licence ([LICENSE](LICENSE)). Third-party components keep their own
+licences ([THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)). The trained models in `pwa/models/` were trained on
+UTKFace and FER2013 and are intended for non-commercial research and education only.
 
 ## References
 
