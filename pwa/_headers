@@ -1,0 +1,4 @@
+# Used by Netlify / Cloudflare Pages (ignored by GitHub Pages, where sw.js adds these headers).
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp

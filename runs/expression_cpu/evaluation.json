@@ -1,0 +1,108 @@
+{
+  "task": "expression",
+  "run": "runs\\expression_cpu",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "img_size": 112,
+  "parameters": 1076519,
+  "test_samples": 3589,
+  "checkpoint_mb": 4.427,
+  "metrics": {
+    "pytorch_fp32": {
+      "n": 3589,
+      "accuracy": 0.6787,
+      "macro_f1": 0.6707,
+      "per_class_f1": {
+        "angry": 0.5964,
+        "disgust": 0.7119,
+        "fear": 0.5392,
+        "happy": 0.8746,
+        "sad": 0.539,
+        "surprise": 0.7938,
+        "neutral": 0.6401
+      },
+      "confusion": [
+        [
+          297,
+          7,
+          44,
+          15,
+          70,
+          10,
+          48
+        ],
+        [
+          7,
+          42,
+          1,
+          0,
+          1,
+          1,
+          3
+        ],
+        [
+          64,
+          6,
+          275,
+          9,
+          90,
+          40,
+          44
+        ],
+        [
+          28,
+          0,
+          19,
+          760,
+          22,
+          18,
+          32
+        ],
+        [
+          49,
+          2,
+          75,
+          33,
+          321,
+          5,
+          109
+        ],
+        [
+          20,
+          2,
+          33,
+          13,
+          8,
+          331,
+          9
+        ],
+        [
+          40,
+          4,
+          45,
+          29,
+          85,
+          13,
+          410
+        ]
+      ],
+      "happy_sad_n": 1473,
+      "happy_sad_accuracy_7way": 0.7339,
+      "happy_sad_accuracy_2way": 0.9104
+    }
+  },
+  "latency": {
+    "pytorch_cpu_fp32": {
+      "mean_ms": 3.531,
+      "p50_ms": 3.61,
+      "p95_ms": 3.939,
+      "fps": 283.2
+    },
+    "pytorch_gpu_fp32": {
+      "mean_ms": 3.645,
+      "p50_ms": 3.242,
+      "p95_ms": 6.348,
+      "fps": 274.3
+    }
+  },
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+}

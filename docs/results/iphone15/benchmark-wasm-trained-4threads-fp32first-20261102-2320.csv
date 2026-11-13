@@ -1,0 +1,8 @@
+stage,backend,precision,input,load_ms,run_order,mean_ms,p50_ms,p95_ms,fps,device_user_agent,wasm_threads,cross_origin_isolated,ort_web
+Face detection,wasm,fp32,192x320,788,1,6.31,5.62,10,158.4,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4,true,1.31.1
+Age + gender,wasm,fp32,160x160,154,2,6.79,6.44,9.98,147.2,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4,true,1.31.1
+Expression,wasm,fp32,112x112,1070,3,4.77,3.94,7.4,209.5,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4,true,1.31.1
+Full pipeline (1 face),wasm,fp32,1280x720 frame,239,4,26,25.66,30.64,38.5,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4,true,1.31.1
+Age + gender,wasm,int8,160x160,78,5,6.88,6.2,11.94,145.3,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4,true,1.31.1
+Expression,wasm,int8,112x112,76,6,4.29,4.06,6.64,233.2,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4,true,1.31.1
+Full pipeline (1 face),wasm,int8,1280x720 frame,227,7,29.01,28.84,37.46,34.5,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4,true,1.31.1

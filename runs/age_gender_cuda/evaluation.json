@@ -1,0 +1,139 @@
+{
+  "task": "age_gender",
+  "run": "runs\\age_gender_cuda",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "img_size": 160,
+  "parameters": 1075234,
+  "test_samples": 2371,
+  "checkpoint_mb": 4.426,
+  "metrics": {
+    "pytorch_fp32": {
+      "n": 2371,
+      "age_mae": 5.0943,
+      "gender_accuracy": 0.9422,
+      "gender_macro_f1": 0.9421,
+      "gender_confusion": [
+        [
+          1177,
+          63
+        ],
+        [
+          74,
+          1057
+        ]
+      ],
+      "n_18plus": 1948,
+      "age_mae_18plus": 5.5153,
+      "age_group_accuracy_18plus": 0.9302,
+      "age_group_confusion_18plus": [
+        [
+          1642,
+          37
+        ],
+        [
+          99,
+          170
+        ]
+      ],
+      "adult_recall_18plus": 0.978,
+      "elderly_recall_18plus": 0.632,
+      "age_group_balanced_accuracy_18plus": 0.805,
+      "age_mae_elderly": 8.8217
+    },
+    "onnx_fp32": {
+      "n": 2371,
+      "age_mae": 5.0881,
+      "gender_accuracy": 0.9422,
+      "gender_macro_f1": 0.9421,
+      "gender_confusion": [
+        [
+          1177,
+          63
+        ],
+        [
+          74,
+          1057
+        ]
+      ],
+      "n_18plus": 1948,
+      "age_mae_18plus": 5.5153,
+      "age_group_accuracy_18plus": 0.9302,
+      "age_group_confusion_18plus": [
+        [
+          1642,
+          37
+        ],
+        [
+          99,
+          170
+        ]
+      ],
+      "adult_recall_18plus": 0.978,
+      "elderly_recall_18plus": 0.632,
+      "age_group_balanced_accuracy_18plus": 0.805,
+      "age_mae_elderly": 8.8217
+    },
+    "onnx_int8": {
+      "n": 2371,
+      "age_mae": 5.143,
+      "gender_accuracy": 0.9418,
+      "gender_macro_f1": 0.9416,
+      "gender_confusion": [
+        [
+          1185,
+          55
+        ],
+        [
+          83,
+          1048
+        ]
+      ],
+      "n_18plus": 1948,
+      "age_mae_18plus": 5.5844,
+      "age_group_accuracy_18plus": 0.9333,
+      "age_group_confusion_18plus": [
+        [
+          1652,
+          27
+        ],
+        [
+          103,
+          166
+        ]
+      ],
+      "adult_recall_18plus": 0.9839,
+      "elderly_recall_18plus": 0.6171,
+      "age_group_balanced_accuracy_18plus": 0.8005,
+      "age_mae_elderly": 9.2115
+    }
+  },
+  "latency": {
+    "pytorch_cpu_fp32": {
+      "mean_ms": 6.386,
+      "p50_ms": 6.733,
+      "p95_ms": 9.704,
+      "fps": 156.6
+    },
+    "pytorch_gpu_fp32": {
+      "mean_ms": 4.108,
+      "p50_ms": 3.516,
+      "p95_ms": 6.726,
+      "fps": 243.4
+    },
+    "onnxruntime_cpu_fp32": {
+      "mean_ms": 1.865,
+      "p50_ms": 2.057,
+      "p95_ms": 2.201,
+      "fps": 536.3
+    },
+    "onnxruntime_cpu_int8": {
+      "mean_ms": 2.824,
+      "p50_ms": 1.608,
+      "p95_ms": 9.713,
+      "fps": 354.2
+    }
+  },
+  "onnx_fp32_mb": 4.354,
+  "onnx_int8_mb": 1.235,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+}

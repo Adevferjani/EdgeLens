@@ -1,0 +1,21 @@
+photo_id,true_age,true_age_group,pred_age,pred_age_group,age_group_correct,abs_age_error,true_gender,p_female,pred_gender,gender_correct,true_expression,pred_expression,pred_expression_conf,expression_correct,pred_happy_vs_sad,happy_vs_sad_correct,p_angry,p_disgust,p_fear,p_happy,p_sad,p_surprise,p_neutral,face_found,face_score,latency_ms,engine
+P01,30,adult,27.8,adult,true,2.2,male,0.0578,male,true,happy,happy,0.8724,true,happy,true,0.014,0.0452,0.0164,0.8724,0.0111,0.0173,0.0236,true,0.896,85.4,WASM FP32
+P02,53,adult,51.1,adult,true,1.9,male,0.04,male,true,happy,neutral,0.5624,false,happy,true,0.0087,0.0762,0.0423,0.2669,0.013,0.0305,0.5624,true,0.921,87.2,WASM FP32
+P03,22,adult,27.6,adult,true,5.6,male,0.0506,male,true,sad,angry,0.4765,false,sad,true,0.4765,0.0726,0.0256,0.0604,0.3252,0.0169,0.0229,true,0.732,82.9,WASM FP32
+P04,29,adult,33.9,adult,true,4.9,male,0.0504,male,true,sad,sad,0.4549,true,sad,true,0.0676,0.0736,0.0139,0.0509,0.4549,0.0147,0.3243,true,0.867,83.3,WASM FP32
+P05,24,adult,19.4,adult,true,4.6,female,0.9507,female,true,sad,sad,0.9532,true,sad,true,0.0096,0.0225,0.002,0.0038,0.9532,0.0037,0.0052,true,0.918,80.2,WASM FP32
+P06,33,adult,36.3,adult,true,3.3,female,0.949,female,true,sad,sad,0.3187,true,sad,true,0.2155,0.1634,0.0514,0.0314,0.3187,0.0712,0.1484,true,0.866,81.9,WASM FP32
+P07,28,adult,24.6,adult,true,3.4,female,0.9222,female,true,sad,sad,0.9011,true,sad,true,0.0385,0.0317,0.0147,0.0043,0.9011,0.0048,0.0049,true,0.858,80.4,WASM FP32
+P08,24,adult,31.2,adult,true,7.2,female,0.8591,female,true,happy,happy,0.8971,true,happy,true,0.0119,0.0429,0.0123,0.8971,0.0106,0.014,0.0112,true,0.912,79.3,WASM FP32
+P09,78,elderly,80.6,elderly,true,2.6,male,0.3654,male,true,happy,happy,0.7409,true,happy,true,0.0136,0.0632,0.0328,0.7409,0.0134,0.0262,0.1099,true,0.9,82.6,WASM FP32
+P10,63,elderly,60.1,elderly,true,2.9,male,0.8931,female,false,happy,happy,0.8717,true,happy,true,0.036,0.0322,0.0126,0.8717,0.0143,0.0154,0.0178,true,0.723,81.8,WASM FP32
+P11,63,elderly,69.2,elderly,true,6.2,male,0.0759,male,true,sad,fear,0.7001,false,sad,true,0.0499,0.0603,0.7001,0.0065,0.0428,0.0116,0.1288,true,0.737,79.1,WASM FP32
+P12,71,elderly,66.7,elderly,true,4.3,male,0.0619,male,true,sad,neutral,0.5608,false,sad,true,0.2042,0.0632,0.059,0.014,0.0802,0.0186,0.5608,true,0.892,81,WASM FP32
+P13,74,elderly,81.9,elderly,true,7.9,male,0.0547,male,true,sad,neutral,0.5338,false,sad,true,0.0306,0.068,0.1325,0.0223,0.1538,0.059,0.5338,true,0.911,81.4,WASM FP32
+P14,80,elderly,80.2,elderly,true,0.2,female,0.9415,female,true,happy,neutral,0.6363,false,sad,false,0.0045,0.0923,0.0526,0.0685,0.113,0.0328,0.6363,true,0.82,82,WASM FP32
+P15,64,elderly,61.3,elderly,true,2.7,female,0.0986,male,false,happy,happy,0.8001,true,happy,true,0.0108,0.0548,0.0148,0.8001,0.0145,0.0192,0.0858,true,0.756,80.6,WASM FP32
+P16,68,elderly,66.5,elderly,true,1.5,female,0.8824,female,true,happy,happy,0.5726,true,happy,true,0.0683,0.0924,0.0191,0.5726,0.1685,0.0267,0.0525,true,0.745,81.3,WASM FP32
+P17,64,elderly,59.2,adult,false,4.8,female,0.0677,male,false,sad,sad,0.824,true,sad,true,0.0177,0.0535,0.0529,0.0195,0.824,0.0131,0.0194,true,0.847,83.1,WASM FP32
+P18,78,elderly,87.1,elderly,true,9.1,female,0.7793,female,true,sad,fear,0.89,false,sad,true,0.012,0.0373,0.89,0.006,0.0294,0.0196,0.0057,true,0.884,80.8,WASM FP32
+P19,23,adult,18.6,adult,true,4.4,male,0.1363,male,true,happy,happy,0.8859,true,happy,true,0.0148,0.0457,0.0129,0.8859,0.0126,0.0126,0.0156,true,0.932,78,WASM FP32
+P20,23,adult,21.1,adult,true,1.9,female,0.9462,female,true,happy,happy,0.8435,true,happy,true,0.0188,0.0518,0.0158,0.8435,0.0128,0.0209,0.0364,true,0.943,84.2,WASM FP32

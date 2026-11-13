@@ -1,0 +1,75 @@
+{
+  "onnxruntime": "1.31.1",
+  "python": "3.12.7",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "results": {
+    "age_gender (all threads)": {
+      "fp32": {
+        "mean_ms": 1.476,
+        "median_ms": 1.426,
+        "dequantize_nodes_after_optimisation": 0
+      },
+      "int8_default": {
+        "mean_ms": 1.799,
+        "median_ms": 1.782,
+        "dequantize_nodes_after_optimisation": 55
+      },
+      "int8_folded": {
+        "mean_ms": 1.455,
+        "median_ms": 1.412,
+        "dequantize_nodes_after_optimisation": 0
+      }
+    },
+    "age_gender (1 thread)": {
+      "fp32": {
+        "mean_ms": 1.56,
+        "median_ms": 1.517,
+        "dequantize_nodes_after_optimisation": 0
+      },
+      "int8_default": {
+        "mean_ms": 3.405,
+        "median_ms": 3.333,
+        "dequantize_nodes_after_optimisation": 55
+      },
+      "int8_folded": {
+        "mean_ms": 1.544,
+        "median_ms": 1.481,
+        "dequantize_nodes_after_optimisation": 0
+      }
+    },
+    "expression (all threads)": {
+      "fp32": {
+        "mean_ms": 1.265,
+        "median_ms": 1.239,
+        "dequantize_nodes_after_optimisation": 0
+      },
+      "int8_default": {
+        "mean_ms": 2.127,
+        "median_ms": 1.511,
+        "dequantize_nodes_after_optimisation": 54
+      },
+      "int8_folded": {
+        "mean_ms": 1.573,
+        "median_ms": 1.718,
+        "dequantize_nodes_after_optimisation": 0
+      }
+    },
+    "expression (1 thread)": {
+      "fp32": {
+        "mean_ms": 1.385,
+        "median_ms": 1.163,
+        "dequantize_nodes_after_optimisation": 0
+      },
+      "int8_default": {
+        "mean_ms": 3.775,
+        "median_ms": 3.163,
+        "dequantize_nodes_after_optimisation": 54
+      },
+      "int8_folded": {
+        "mean_ms": 1.396,
+        "median_ms": 1.18,
+        "dequantize_nodes_after_optimisation": 0
+      }
+    }
+  }
+}

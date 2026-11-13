@@ -1,0 +1,65 @@
+{
+  "task": "expression",
+  "hardware": {
+    "os": "Windows 11",
+    "python": "3.12.7",
+    "torch": "2.15.0+cu132",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+    "cpu_threads": 12,
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "gpu_memory_gb": 8.0,
+    "cuda": "13.2",
+    "cudnn": 92600
+  },
+  "img_size": 112,
+  "parameters": 1076519,
+  "samples": {
+    "train": 28709,
+    "val": 3589,
+    "test": 3589
+  },
+  "epochs_run": 30,
+  "best_epoch": 28,
+  "training_time_s": 441.9,
+  "mean_epoch_time_s": 14.7,
+  "wall_time_incl_validation_s": 482.8,
+  "best_val": {
+    "score": 0.6582,
+    "n": 3589,
+    "accuracy": 0.6665,
+    "macro_f1": 0.6582,
+    "happy_sad_n": 1548,
+    "happy_sad_accuracy_7way": 0.7048,
+    "happy_sad_accuracy_2way": 0.9128
+  },
+  "test": {
+    "n": 3589,
+    "accuracy": 0.6826,
+    "macro_f1": 0.6824,
+    "happy_sad_n": 1473,
+    "happy_sad_accuracy_7way": 0.7271,
+    "happy_sad_accuracy_2way": 0.9097
+  },
+  "args": {
+    "task": "expression",
+    "data": "data/fer2013",
+    "device": "cuda",
+    "epochs": 30,
+    "batch_size": 64,
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "img_size": null,
+    "workers": 4,
+    "threads": null,
+    "patience": 8,
+    "seed": 42,
+    "label_smoothing": 0.1,
+    "age_loss_weight": 1.0,
+    "no_pretrained": false,
+    "no_amp": false,
+    "max_train_samples": null,
+    "out": null,
+    "split_dir": "splits"
+  }
+}

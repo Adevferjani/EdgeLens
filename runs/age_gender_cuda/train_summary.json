@@ -1,0 +1,69 @@
+{
+  "task": "age_gender",
+  "hardware": {
+    "os": "Windows 11",
+    "python": "3.12.7",
+    "torch": "2.15.0+cu132",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+    "cpu_threads": 12,
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "gpu_memory_gb": 8.0,
+    "cuda": "13.2",
+    "cudnn": 92600
+  },
+  "img_size": 160,
+  "parameters": 1075234,
+  "samples": {
+    "train": 18966,
+    "val": 2371,
+    "test": 2371
+  },
+  "epochs_run": 30,
+  "best_epoch": 26,
+  "training_time_s": 427.9,
+  "mean_epoch_time_s": 14.3,
+  "wall_time_incl_validation_s": 464.9,
+  "best_val": {
+    "score": -0.47262,
+    "n": 2371,
+    "age_mae": 5.2,
+    "gender_accuracy": 0.9372,
+    "gender_macro_f1": 0.937,
+    "n_18plus": 1948,
+    "age_mae_18plus": 5.7169,
+    "age_group_accuracy_18plus": 0.9333
+  },
+  "selection": "-(val MAE / median-predictor MAE + gender error / 0.5)",
+  "age_mae_reference": 14.985,
+  "test": {
+    "n": 2371,
+    "age_mae": 5.094,
+    "gender_accuracy": 0.9426,
+    "gender_macro_f1": 0.9425,
+    "n_18plus": 1948,
+    "age_mae_18plus": 5.5141,
+    "age_group_accuracy_18plus": 0.9307
+  },
+  "args": {
+    "task": "age_gender",
+    "data": "data/UTKFace",
+    "device": "cuda",
+    "epochs": 30,
+    "batch_size": 64,
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "img_size": null,
+    "workers": 4,
+    "threads": null,
+    "patience": 8,
+    "seed": 42,
+    "label_smoothing": 0.1,
+    "age_loss_weight": 1.0,
+    "no_pretrained": false,
+    "no_amp": false,
+    "max_train_samples": null,
+    "out": null,
+    "split_dir": "splits"
+  }
+}

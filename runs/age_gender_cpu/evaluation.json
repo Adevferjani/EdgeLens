@@ -1,0 +1,59 @@
+{
+  "task": "age_gender",
+  "run": "runs\\age_gender_cpu",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "img_size": 160,
+  "parameters": 1075234,
+  "test_samples": 2371,
+  "checkpoint_mb": 4.422,
+  "metrics": {
+    "pytorch_fp32": {
+      "n": 2371,
+      "age_mae": 5.2897,
+      "gender_accuracy": 0.9418,
+      "gender_macro_f1": 0.9416,
+      "gender_confusion": [
+        [
+          1179,
+          61
+        ],
+        [
+          77,
+          1054
+        ]
+      ],
+      "n_18plus": 1948,
+      "age_mae_18plus": 5.7692,
+      "age_group_accuracy_18plus": 0.9312,
+      "age_group_confusion_18plus": [
+        [
+          1640,
+          39
+        ],
+        [
+          95,
+          174
+        ]
+      ],
+      "adult_recall_18plus": 0.9768,
+      "elderly_recall_18plus": 0.6468,
+      "age_group_balanced_accuracy_18plus": 0.8118,
+      "age_mae_elderly": 8.7647
+    }
+  },
+  "latency": {
+    "pytorch_cpu_fp32": {
+      "mean_ms": 6.642,
+      "p50_ms": 7.451,
+      "p95_ms": 8.066,
+      "fps": 150.5
+    },
+    "pytorch_gpu_fp32": {
+      "mean_ms": 3.74,
+      "p50_ms": 3.299,
+      "p95_ms": 6.333,
+      "fps": 267.4
+    }
+  },
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+}

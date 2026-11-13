@@ -1,0 +1,11 @@
+# Lint and import-order settings for the Python code (ruff, https://docs.astral.sh/ruff/).
+# Run from the repository root: ruff check training pwa/tools
+line-length = 120
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[lint.isort]
+# The training scripts import each other as top-level modules (run as `python training/<script>.py`).
+known-first-party = ["common", "data", "engine", "export_onnx", "metrics", "models", "quantize_weights", "yunet"]

@@ -1,0 +1,65 @@
+{
+  "task": "expression",
+  "hardware": {
+    "os": "Windows 11",
+    "python": "3.12.7",
+    "torch": "2.15.0+cu132",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+    "cpu_threads": 12,
+    "device": "cpu"
+  },
+  "img_size": 112,
+  "parameters": 1076519,
+  "samples": {
+    "train": 28709,
+    "val": 3589,
+    "test": 3589
+  },
+  "epochs_run": 30,
+  "best_epoch": 30,
+  "training_time_s": 2767.1,
+  "mean_epoch_time_s": 92.2,
+  "wall_time_incl_validation_s": 2856.1,
+  "best_val": {
+    "score": 0.6631,
+    "n": 3589,
+    "accuracy": 0.6687,
+    "macro_f1": 0.6631,
+    "happy_sad_n": 1548,
+    "happy_sad_accuracy_7way": 0.7235,
+    "happy_sad_accuracy_2way": 0.9141
+  },
+  "selection": "val macro-F1",
+  "age_mae_reference": null,
+  "test": {
+    "n": 3589,
+    "accuracy": 0.6787,
+    "macro_f1": 0.6707,
+    "happy_sad_n": 1473,
+    "happy_sad_accuracy_7way": 0.7339,
+    "happy_sad_accuracy_2way": 0.9104
+  },
+  "args": {
+    "task": "expression",
+    "data": "data/fer2013",
+    "device": "cpu",
+    "epochs": 30,
+    "batch_size": 64,
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "img_size": null,
+    "workers": 4,
+    "threads": null,
+    "patience": 8,
+    "seed": 42,
+    "label_smoothing": 0.1,
+    "age_loss_weight": 1.0,
+    "balance_ages": false,
+    "balance_power": 0.5,
+    "no_pretrained": false,
+    "no_amp": false,
+    "max_train_samples": null,
+    "out": null,
+    "split_dir": "splits"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "task": "face_detection",
+  "name": "YuNet (face_detection_yunet_2026may)",
+  "file": "face_detection_yunet_2026may.onnx",
+  "input": {
+    "name": "input",
+    "layout": "NCHW",
+    "color": "BGR",
+    "range": [0, 255],
+    "shape": [1, 3, "height (multiple of 32)", "width (multiple of 32)"]
+  },
+  "score_threshold": 0.6,
+  "nms_threshold": 0.3,
+  "landmarks": ["right_eye", "left_eye", "nose_tip", "right_mouth_corner", "left_mouth_corner"],
+  "source": "https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet",
+  "license": "MIT (see LICENSE-yunet.txt)",
+  "reference": "Wu, W., Peng, H., & Yu, S. (2023). YuNet: A tiny millisecond-level face detector. Machine Intelligence Research, 20(5), 656-665. https://doi.org/10.1007/s11633-023-1423-y",
+  "sha256": "ebafce4e3c118d6554634be5c27ab333b4c047a9a8c3faf1d7cf93101c22f0f0"
+}

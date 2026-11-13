@@ -1,0 +1,11 @@
+# Install PyTorch + torchvision FIRST with the CUDA command from https://pytorch.org/get-started/locally/
+# (tested with torch 2.15 / torchvision 0.29). Then: pip install -r training/requirements.txt
+# Exact versions of the training environment: requirements-lock.txt
+numpy
+pillow
+scikit-learn
+tqdm
+onnx
+onnxscript
+onnxruntime
+opencv-python-headless

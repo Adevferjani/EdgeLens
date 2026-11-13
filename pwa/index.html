@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>EdgeLens</title>
+  <meta name="description" content="Estimates age, gender and facial expression entirely on your device. No image is uploaded.">
+  <meta name="theme-color" content="#0B0E0F">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="EdgeLens">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preload" href="vendor/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="vendor/fonts/martian-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body data-view="live" data-live="idle" data-dev="true" data-timings="true">
+  <!-- first launch: first in the page and shown by the inline script below, so it is
+       the first thing painted (the key matches ONBOARDED_KEY in js/app.js) -->
+  <div class="screen onboarding" id="onboarding" hidden>
+    <div class="screen-top">
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M22 36V27q0-5 5-5h9M64 22h9q5 0 5 5v9M78 64v9q0 5-5 5h-9M36 78h-9q-5 0-5-5v-9" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          <path class="signal-stroke" d="M39 44L50 54L61 44M41 64L50 54L59 64" fill="none" stroke-width="1.2" opacity="0.55"/>
+          <g class="signal-fill"><circle cx="39" cy="44" r="3.6"/><circle cx="61" cy="44" r="3.6"/><circle cx="50" cy="54" r="3.2"/><circle cx="41" cy="64" r="3.2"/><circle cx="59" cy="64" r="3.2"/></g>
+        </svg>
+        <span>EdgeLens</span>
+      </div>
+    </div>
+    <div class="onb-art">
+      <svg viewBox="0 0 236 236" aria-hidden="true">
+        <path d="M30 74V42q0-12 12-12h32M162 30h32q12 0 12 12v32M206 162v32q0 12-12 12h-32M74 206H42q-12 0-12-12v-32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <path class="signal-stroke" d="M88 98L118 126L148 98M94 156L118 126L142 156" fill="none" stroke-width="1" opacity="0.5"/>
+        <g class="signal-fill"><circle cx="88" cy="98" r="6"/><circle cx="148" cy="98" r="6"/><circle cx="118" cy="126" r="5.5"/><circle cx="94" cy="156" r="5"/><circle cx="142" cy="156" r="5"/></g>
+        <g class="onb-labels mono"><text x="44" y="92">L EYE</text><text x="158" y="92">R EYE</text><text x="128" y="130">NOSE</text><text x="150" y="168">MOUTH</text></g>
+      </svg>
+    </div>
+    <div class="onb-copy">
+      <h1>Reads a face.<br>Keeps it on your phone.</h1>
+      <p>Three small neural networks estimate age, gender and expression inside the browser. No image is uploaded, and after the first start EdgeLens works offline.</p>
+    </div>
+    <dl class="spec">
+      <dt class="mono">DETECT</dt><dd>Faces and 5 landmarks, up to 5 at once</dd>
+      <dt class="mono">ESTIMATE</dt><dd>Age in years, gender</dd>
+      <dt class="mono">READ</dt><dd>7 facial expressions</dd>
+    </dl>
+    <div class="onb-actions">
+      <button class="btn signal wide" id="onbStart" type="button">Get started</button>
+      <button class="text-btn" id="onbPhoto" type="button">Analyse a photo instead</button>
+      <p class="fine">Estimates come from appearance and can be wrong.</p>
+    </div>
+  </div>
+  <script>
+    // Runs before the first paint, so nothing changes once the app script has
+    // loaded: the welcome screen on the first start, and developer mode (which
+    // adds LAB and the engine label) as saved (keys as in js/app.js).
+    try {
+      if (localStorage.getItem('edgelens.onboarded.v1') !== '1') {
+        var onb = document.getElementById('onboarding');
+        onb.style.animation = 'none'; // the first screen is there at once, no fade-in over the app
+        onb.hidden = false;
+      }
+      var s = JSON.parse(localStorage.getItem('agescope.settings.v1') || 'null') || {};
+      var migrate = (s.settingsVersion || 1) < 2; // app.js turns developer mode and timings on for older settings
+      var dev = migrate || s.devMode !== false;
+      document.body.dataset.dev = String(dev);
+      document.body.dataset.timings = String(dev && (migrate || s.showTimings !== false));
+    } catch (e) { /* no storage: defaults */ }
+  </script>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M22 36V27q0-5 5-5h9M64 22h9q5 0 5 5v9M78 64v9q0 5-5 5h-9M36 78h-9q-5 0-5-5v-9" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+        <path class="signal-stroke" d="M39 44L50 54L61 44M41 64L50 54L59 64" fill="none" stroke-width="1.2" opacity="0.55"/>
+        <g class="signal-fill"><circle cx="39" cy="44" r="3.6"/><circle cx="61" cy="44" r="3.6"/><circle cx="50" cy="54" r="3.2"/><circle cx="41" cy="64" r="3.2"/><circle cx="59" cy="64" r="3.2"/></g>
+      </svg>
+      <span>EdgeLens</span>
+    </div>
+    <div class="top-actions">
+      <span class="chip mono dev-only" id="engineChip">MODELS IDLE</span>
+      <span class="chip mono" id="offlineChip" data-state="pending" title="All processing happens on this device"><i class="chip-dot"></i>ON-DEVICE</span>
+      <button class="icon-btn" id="openSettings" type="button" aria-label="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <p class="banner" id="banner" hidden>
+    Demo models: face detection works, but age, gender and expression are random until the trained models are added.
+  </p>
+
+  <main>
+    <!-- LIVE -->
+    <section class="view view-live" id="view-live" aria-label="Live camera">
+      <div class="viewfinder" id="viewfinder">
+        <video id="video" playsinline muted autoplay aria-hidden="true"></video>
+        <canvas id="display" class="warming" aria-hidden="true"></canvas>
+        <canvas id="overlay" aria-label="Detected faces. Tap a face for all probabilities."></canvas>
+        <div class="vf-start">
+          <svg class="vf-illustration" viewBox="0 0 236 236" aria-hidden="true">
+            <path d="M30 74V42q0-12 12-12h32M162 30h32q12 0 12 12v32M206 162v32q0 12-12 12h-32M74 206H42q-12 0-12-12v-32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path class="signal-stroke" d="M88 98L118 126L148 98M96 154L118 126L140 154" fill="none" stroke-width="1" opacity="0.5"/>
+            <g class="signal-fill"><circle cx="88" cy="98" r="6"/><circle cx="148" cy="98" r="6"/><circle cx="118" cy="126" r="5"/><circle cx="96" cy="154" r="5"/><circle cx="140" cy="154" r="5"/></g>
+          </svg>
+          <h1>Point the camera at a face</h1>
+          <p>EdgeLens analyses up to <span id="maxFacesText">5</span> faces at once, on this phone. Tap a face for all probabilities.</p>
+          <button class="btn primary wide" id="startCam" type="button">Start camera</button>
+        </div>
+        <p class="vf-status mono" id="liveStatus" aria-live="polite"></p>
+        <div class="telemetry dev-only" id="telemetry">
+          <button class="tele-bar mono" id="teleOpen" type="button" aria-expanded="false" aria-controls="telePanel" aria-label="Processing time per frame. Tap for details.">
+            <span>DET <b data-t="detect">–</b></span>
+            <span>AG <b data-t="ageGender">–</b></span>
+            <span>EX <b data-t="expression">–</b> MS</span>
+            <span><b data-t="fps">–</b> FPS</span>
+            <span class="tele-i" aria-hidden="true">i</span>
+          </button>
+          <div class="tele-panel" id="telePanel" role="region" aria-label="Processing time details" hidden>
+            <div class="tele-head mono"><span>PROCESSING TIME</span><button class="tele-close" id="teleClose" type="button" aria-label="Close details">×</button></div>
+            <div class="tele-rows">
+              <span>Face detection <small class="mono">PER FRAME</small></span><span class="v mono"><b data-t="detect">–</b> ms</span>
+              <span>Age + gender <small class="mono">PER FACE</small></span><span class="v mono"><b data-t="ageGender">–</b> ms</span>
+              <span>Expression <small class="mono">PER FACE</small></span><span class="v mono"><b data-t="expression">–</b> ms</span>
+              <span>Other steps¹ <small class="mono">PER FRAME</small></span><span class="v mono"><b data-t="other">–</b> ms</span>
+              <span class="sum">Total per frame</span><span class="v mono sum"><b data-t="total">–</b> ms</span>
+              <span>Frames analysed <small class="mono">CAMERA MAX ≈ 30</small></span><span class="v mono"><b data-t="fps">–</b> fps</span>
+              <span>Faces in frame</span><span class="v mono"><b data-t="faces">–</b></span>
+              <div class="tele-full"><span>Engine</span><span class="v mono" data-t="engine">–</span></div>
+            </div>
+            <p class="tele-note">¹ Preparing the frame and cutting out the faces. Averages of the last ~10 frames; exact measurements in Lab → Speed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHOTO -->
+    <section class="view view-photo" id="view-photo" aria-labelledby="photoTitle" hidden>
+      <h1 class="sr-only" id="photoTitle">Analyse a photo</h1>
+      <div class="photo-stage" id="photoStage">
+        <div class="photo-empty" id="photoEmpty">
+          <svg class="vf-illustration small" viewBox="0 0 236 236" aria-hidden="true">
+            <path d="M30 74V42q0-12 12-12h32M162 30h32q12 0 12 12v32M206 162v32q0 12-12 12h-32M74 206H42q-12 0-12-12v-32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path class="signal-stroke" d="M88 98L118 126L148 98M96 154L118 126L140 154" fill="none" stroke-width="1" opacity="0.5"/>
+            <g class="signal-fill"><circle cx="88" cy="98" r="6"/><circle cx="148" cy="98" r="6"/><circle cx="118" cy="126" r="5"/><circle cx="96" cy="154" r="5"/><circle cx="140" cy="154" r="5"/></g>
+          </svg>
+          <h2>Analyse a photo</h2>
+          <p>Up to 10 faces per photo. The photo stays on this phone and is not saved.</p>
+        </div>
+        <canvas id="photoCanvas" hidden aria-label="Analysed photo with numbered faces"></canvas>
+      </div>
+      <div class="photo-meta mono" id="photoMeta" hidden></div>
+      <ul class="face-list" id="faceList"></ul>
+    </section>
+
+    <!-- LAB (developer mode) -->
+    <section class="view view-lab page" id="view-lab" aria-labelledby="labTitle" hidden>
+      <div class="lab-head">
+        <h1 id="labTitle">Lab</h1>
+        <span class="tag mono">DEVELOPER</span>
+      </div>
+      <div class="segmented" role="tablist" aria-label="Lab section">
+        <button type="button" role="tab" data-lab="eval" aria-selected="false">Evaluate</button>
+        <button type="button" role="tab" data-lab="speed" aria-selected="true">Speed</button>
+        <button type="button" role="tab" data-lab="tests" aria-selected="false">Test sets</button>
+        <button type="button" role="tab" data-lab="logs" aria-selected="false">Logs</button>
+      </div>
+
+      <!-- Evaluate: labelled photos -->
+      <div class="lab-panel" id="lab-eval" role="tabpanel" hidden>
+        <p class="lead">Give each photo its true age group (and exact age, if known), gender and expression to measure accuracy, F1 and age error on this device.
+          A file name like <code>adult_female_happy_age34.jpg</code> fills the labels in.</p>
+        <div class="actions">
+          <label class="btn primary file-btn">Add photos<input type="file" id="photoInput" accept="image/*" multiple></label>
+          <button class="btn" id="exportCsv" type="button">CSV</button>
+          <button class="btn" id="exportJson" type="button">JSON</button>
+          <button class="btn quiet" id="clearPhotos" type="button">Clear</button>
+        </div>
+        <p class="status-line mono"><span id="photoCount">NO PHOTOS YET</span> <span id="photoStatus" aria-live="polite"></span></p>
+        <div class="tables">
+          <div class="table-wrap" id="balance"></div>
+          <div class="table-wrap" id="summary"></div>
+        </div>
+        <ol class="photo-list" id="photoList"></ol>
+        <p class="note">Photos never leave this device. Results and small face crops stay in this browser until you clear them.
+          Exports contain anonymous IDs (P01, P02, …), no file names or images.</p>
+      </div>
+
+      <!-- Speed: latency benchmark -->
+      <div class="lab-panel" id="lab-speed" role="tabpanel">
+        <p class="lead">Times each model with random input (batch size 1, as in Live) after at least 2 s of warm-up.
+          Run it once in each order to check that the order does not change the result.</p>
+        <form class="bench-form" onsubmit="return false">
+          <fieldset>
+            <legend>Backend</legend>
+            <label><input type="checkbox" id="benchWebgpu" checked> WebGPU <small id="benchWebgpuNote"></small></label>
+            <label><input type="checkbox" id="benchWasm" checked> WebAssembly (CPU)</label>
+          </fieldset>
+          <fieldset>
+            <legend>Precision</legend>
+            <label><input type="checkbox" id="benchFp32" checked> FP32</label>
+            <label><input type="checkbox" id="benchInt8" checked> INT8 weights</label>
+          </fieldset>
+          <fieldset>
+            <legend>Repetitions</legend>
+            <select id="benchIters" aria-label="Timed runs per model">
+              <option value="50">50 runs</option>
+              <option value="100" selected>100 runs</option>
+              <option value="200">200 runs</option>
+            </select>
+            <label><input type="checkbox" id="benchReverse"> INT8 before FP32</label>
+          </fieldset>
+          <div class="bench-run">
+            <button class="btn primary" id="runBench" type="button">Run speed test</button>
+            <progress id="benchBar" max="1" value="0"></progress>
+            <p id="benchProgress" class="mono" aria-live="polite"></p>
+          </div>
+        </form>
+        <div id="benchResults" hidden>
+          <div class="table-wrap">
+            <table class="grid" id="benchTable">
+              <caption>Latency per inference</caption>
+              <thead><tr><th>Stage</th><th>Runtime</th><th>Mean ms</th><th class="col-wide">Median ms</th><th>95th pct ms</th><th>FPS</th><th class="col-wide">Load ms</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="actions">
+            <button class="btn" id="benchCsv" type="button" disabled>CSV</button>
+            <button class="btn" id="benchJson" type="button" disabled>JSON</button>
+          </div>
+          <h2>Device</h2>
+          <dl class="facts" id="deviceInfo"></dl>
+        </div>
+      </div>
+
+      <!-- Test sets: on-device accuracy -->
+      <div class="lab-panel" id="lab-tests" role="tabpanel" hidden>
+        <p class="lead">Runs the models on the UTKFace and FER2013 test images and compares the accuracy, and every prediction, with the PC.
+          Create the file on the PC with <code>python training/tools/export_testset.py</code> and copy <code>testset.zip</code> to this device.
+          The faces are already cropped, so face detection is not part of this test. The file contains dataset images: keep it private.</p>
+        <form class="bench-form" onsubmit="return false" aria-label="Test-set check">
+          <fieldset>
+            <legend>Backend</legend>
+            <label><input type="radio" name="testsetBackend" value="wasm" checked> WebAssembly (CPU)</label>
+            <label><input type="radio" name="testsetBackend" value="webgpu" id="testsetWebgpu"> WebGPU</label>
+          </fieldset>
+          <fieldset>
+            <legend>Precision</legend>
+            <label><input type="checkbox" id="testsetFp32" checked> FP32</label>
+            <label><input type="checkbox" id="testsetInt8" checked> INT8 weights</label>
+          </fieldset>
+          <div class="bench-run">
+            <label class="btn primary file-btn" id="testsetPick">Choose test-set file<input type="file" id="testsetInput" accept=".zip,application/zip"></label>
+            <button class="btn" id="testsetStop" type="button" hidden>Stop</button>
+            <progress id="testsetBar" max="1" value="0"></progress>
+            <p id="testsetProgress" class="mono" aria-live="polite"></p>
+          </div>
+        </form>
+        <div id="testsetResults" hidden>
+          <div class="table-wrap"><table class="grid" id="testsetTable"></table></div>
+          <div class="table-wrap"><table class="grid" id="testsetAgree"></table></div>
+          <p class="note" id="testsetNote"></p>
+          <div class="actions">
+            <button class="btn" id="testsetCsv" type="button">CSV</button>
+            <button class="btn" id="testsetJson" type="button">JSON</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logs: diagnostics, runtime, models -->
+      <div class="lab-panel" id="lab-logs" role="tabpanel" hidden>
+        <h2>Diagnostics</h2>
+        <p class="note">If iOS closes the app (for example because it ran out of memory), EdgeLens records what it was doing.
+          The log contains settings and timings only, no images.</p>
+        <div id="diagList"></div>
+        <div class="actions">
+          <button class="btn" id="diagCopy" type="button">Copy report</button>
+          <button class="btn quiet" id="diagClear" type="button">Clear</button>
+        </div>
+        <h2>Runtime</h2>
+        <dl class="facts" id="runtimeInfo"></dl>
+        <h2>Models</h2>
+        <div class="table-wrap">
+          <table class="grid" id="modelTable">
+            <thead><tr><th>Model</th><th>Input</th><th>Size</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view view-settings" id="view-settings" aria-labelledby="settingsTitle" hidden>
+      <div class="settings-head">
+        <h1 id="settingsTitle">Settings</h1>
+        <button class="text-btn" id="closeSettings" type="button">Done</button>
+      </div>
+      <div class="reset-bar" id="resetBar" hidden>
+        <span class="mono" id="resetCount"></span>
+        <button class="text-btn" id="resetTop" type="button">Reset</button>
+      </div>
+      <form id="settingsForm" class="settings" onsubmit="return false">
+        <h2 class="section-label mono">CAMERA</h2>
+        <label class="row">
+          <span class="row-text">Detection resolution</span>
+          <select name="detectorSize">
+            <option value="256">256 px · fastest</option>
+            <option value="320">320 px</option>
+            <option value="480">480 px</option>
+            <option value="640">640 px · small faces</option>
+          </select>
+        </label>
+        <label class="row">
+          <span class="row-text">Faces at once<small>Live analyses the largest faces; Photo up to 10</small></span>
+          <select name="maxFaces">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+          </select>
+        </label>
+        <label class="row">
+          <span class="row-text">Detection confidence<small>Minimum detector score for a face to be analysed</small></span>
+          <span class="range"><input type="range" name="scoreThreshold" min="0.3" max="0.9" step="0.05"><output class="mono" id="thresholdValue"></output></span>
+        </label>
+        <label class="row">
+          <span class="row-text">Smooth values</span>
+          <input class="switch" type="checkbox" role="switch" name="smoothing">
+        </label>
+        <label class="row">
+          <span class="row-text">Show landmarks</span>
+          <input class="switch" type="checkbox" role="switch" name="showLandmarks">
+        </label>
+
+        <h2 class="section-label mono">DEVELOPER</h2>
+        <label class="row dev-row">
+          <span class="row-text">Developer mode<small>Adds LAB next to LIVE and PHOTO: evaluation photos, speed test, test sets and logs. Shows processor settings and timings.</small></span>
+          <input class="switch" type="checkbox" role="switch" name="devMode">
+        </label>
+        <div class="dev-only dev-settings">
+          <label class="row">
+            <span class="row-text">Processor</span>
+            <select name="backend">
+              <option value="auto">Automatic</option>
+              <option value="webgpu">WebGPU (graphics)</option>
+              <option value="wasm">WebAssembly (CPU)</option>
+            </select>
+          </label>
+          <label class="row">
+            <span class="row-text">Model precision</span>
+            <select name="precision">
+              <option value="auto">Automatic (FP32)</option>
+              <option value="fp32">FP32</option>
+              <option value="int8">INT8 weights (72 % smaller)</option>
+            </select>
+          </label>
+          <label class="row">
+            <span class="row-text">CPU threads</span>
+            <select name="threads">
+              <option value="auto">Automatic</option>
+              <option value="1">One thread</option>
+            </select>
+          </label>
+          <label class="row">
+            <span class="row-text">Timings in Live</span>
+            <input class="switch" type="checkbox" role="switch" name="showTimings">
+          </label>
+        </div>
+
+        <h2 class="section-label mono">PRIVACY</h2>
+        <label class="row">
+          <span class="row-text">Blur faces on screen<small>For screenshots and screen recordings</small></span>
+          <input class="switch" type="checkbox" role="switch" name="blurFaces">
+        </label>
+
+        <h2 class="section-label mono">APP</h2>
+        <div class="row"><span class="row-text">Version</span><span class="row-value mono" id="versionValue">–</span></div>
+        <div class="row"><span class="row-text">Offline<small id="offlineStatus"></small></span><span class="row-value mono" id="offlineValue">–</span></div>
+        <button class="row row-action" id="reloadApp" type="button">Check for update</button>
+        <p class="update-status" id="updateStatus" role="status" aria-live="polite"></p>
+        <div class="update-ready" id="updateReady" hidden>
+          <p><strong>A new version is ready</strong> <span class="mono" id="updateVersion"></span></p>
+          <p class="note">Install it now, or later: it is installed automatically the next time EdgeLens is fully closed and reopened.</p>
+          <div class="actions">
+            <button class="btn signal" id="installUpdate" type="button">Install and restart</button>
+            <button class="btn quiet" id="laterUpdate" type="button">Not now</button>
+          </div>
+        </div>
+        <p class="note" id="installHint"></p>
+
+        <h2 class="section-label mono">ABOUT</h2>
+        <div class="about">
+          <h3>What it is</h3>
+          <p>EdgeLens was built for the course "Project: Edge AI" at IU International University of Applied Sciences.
+            A face detector (YuNet) finds faces and five landmarks; two compact neural networks (MobileNetV3-Small) estimate age and gender,
+            and facial expression. All three run in the browser with ONNX Runtime Web.</p>
+          <h3>Privacy</h3>
+          <p>Camera frames and photos are processed on this device and never sent anywhere. EdgeLens does not recognise who a person is.</p>
+          <h3>How accurate</h3>
+          <p>On the test sets, the age is off by about 5 years on average, gender is 94 % correct and expression 68 % (7 classes; happy vs. sad: 91 %).
+            It often underestimates people over 60 and confuses sad with neutral or fear more than other expressions. Results are based on
+            appearance only and can be wrong, especially for groups that are under-represented in the training data, so they should not be
+            used to make decisions about people.</p>
+          <h3>Credits</h3>
+          <p>YuNet face detector (OpenCV Zoo, MIT licence), ONNX Runtime Web (MIT), Instrument Sans and Martian Mono (SIL Open Font License).
+            Trained on UTKFace and FER2013 (research use).</p>
+        </div>
+
+        <button class="row row-action reset-row" id="resetBottom" type="button">Reset settings to defaults</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="dock">
+    <div class="live-controls" id="liveControls">
+      <span class="face-count mono" id="faceCount">NO FACE</span>
+      <button class="shutter" id="freezeBtn" type="button" aria-label="Freeze frame and show all probabilities"><span></span></button>
+      <div class="live-right">
+        <button class="round-btn" id="flipCam" type="button" aria-label="Switch camera">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="photo-actions" id="photoActions">
+      <label class="btn primary file-btn">Choose photo<input type="file" id="photoPick" accept="image/*"></label>
+      <label class="btn file-btn">Take photo<input type="file" id="photoTake" accept="image/*" capture="environment"></label>
+    </div>
+    <nav class="modes mono" aria-label="Mode">
+      <button type="button" data-view="live" aria-current="page">LIVE</button>
+      <button type="button" data-view="photo">PHOTO</button>
+      <button type="button" data-view="lab" class="dev-only">LAB</button>
+    </nav>
+  </footer>
+
+  <!-- detail sheet: all probabilities for one face -->
+  <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+  <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden></section>
+
+  <!-- model loading -->
+  <div class="screen" id="loadingScreen" role="status" aria-live="polite" hidden>
+    <div class="screen-top mono"><span>EDGELENS</span><span id="loadingKind">STARTING</span></div>
+    <div class="loading-hero">
+      <svg class="loading-mark" viewBox="0 0 168 168" aria-hidden="true">
+        <path d="M18 52V30q0-12 12-12h22M116 18h22q12 0 12 12v22M150 116v22q0 12-12 12h-22M52 150H30q-12 0-12-12v-22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <rect class="lm-scan" x="26" y="24" width="116" height="2"/>
+        <g class="signal-fill">
+          <circle class="lm-dot" cx="62" cy="70" r="5"/><circle class="lm-dot" cx="106" cy="70" r="5"/>
+          <circle class="lm-dot" cx="84" cy="92" r="4.6"/><circle class="lm-dot" cx="68" cy="114" r="4.4"/><circle class="lm-dot" cx="100" cy="114" r="4.4"/>
+        </g>
+      </svg>
+      <h1 id="loadingTitle">Preparing the models</h1>
+      <p id="loadingText">They run on this phone. Nothing is uploaded.</p>
+    </div>
+    <ol class="steps" id="loadingSteps"></ol>
+    <div class="segments" id="loadingSegments" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

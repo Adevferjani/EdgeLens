@@ -1,0 +1,33 @@
+{
+  "n": 2371,
+  "age_mae": 5.0838,
+  "gender_accuracy": 0.9405,
+  "gender_macro_f1": 0.9404,
+  "gender_confusion": [
+    [
+      1171,
+      69
+    ],
+    [
+      72,
+      1059
+    ]
+  ],
+  "n_18plus": 1948,
+  "age_mae_18plus": 5.5135,
+  "age_group_accuracy_18plus": 0.9307,
+  "age_group_confusion_18plus": [
+    [
+      1626,
+      53
+    ],
+    [
+      82,
+      187
+    ]
+  ],
+  "adult_recall_18plus": 0.9684,
+  "elderly_recall_18plus": 0.6952,
+  "age_group_balanced_accuracy_18plus": 0.8318,
+  "age_mae_elderly": 7.5282
+}

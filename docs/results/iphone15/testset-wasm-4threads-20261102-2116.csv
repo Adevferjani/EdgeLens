@@ -1,0 +1,15 @@
+section,metric,pc_fp32,pc_int8,device_wasm_fp32,device_wasm_int8,device_user_agent,wasm_threads
+age_gender,Age MAE (years),5.0784,5.1514,5.0824,5.1492,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+age_gender,"Age MAE, 18+ (years)",5.5122,5.5616,5.5154,5.5598,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+age_gender,Adult / 60+ accuracy (18+),0.9307,0.9292,0.9312,0.9286,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+age_gender,60+ recall,0.6952,0.71,0.6989,0.7138,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+age_gender,Balanced adult / 60+ accuracy,0.8318,0.8372,0.8337,0.8384,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+age_gender,Gender accuracy,0.9405,0.9422,0.9401,0.9405,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+age_gender,Gender macro-F1,0.9404,0.9421,0.94,0.9404,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+expression,Accuracy (7 classes),0.6838,0.6832,0.6838,0.6832,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+expression,Macro-F1,0.6834,0.6831,0.6834,0.6831,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+expression,"Happy vs sad, forced choice",0.9104,0.907,0.9104,0.907,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+expression,"Happy vs sad, top of 7",0.7278,0.7217,0.7278,0.7217,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+time,Decode + resize (ms/image),,,3.041,2.013,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+time,Age + gender model (ms/image),,,6.253,4.67,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4
+time,Expression model (ms/image),,,3.471,3.363,"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",4

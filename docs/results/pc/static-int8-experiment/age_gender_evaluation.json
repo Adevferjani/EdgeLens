@@ -1,0 +1,127 @@
+{
+  "task": "age_gender",
+  "run": "runs/age_gender_cuda",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "img_size": 160,
+  "parameters": 1075234,
+  "test_samples": 2371,
+  "checkpoint_mb": 4.426,
+  "metrics": {
+    "pytorch_fp32": {
+      "n": 2371,
+      "age_mae": 5.0943,
+      "gender_accuracy": 0.9422,
+      "gender_macro_f1": 0.9421,
+      "gender_confusion": [
+        [
+          1177,
+          63
+        ],
+        [
+          74,
+          1057
+        ]
+      ],
+      "n_18plus": 1948,
+      "age_mae_18plus": 5.5153,
+      "age_group_accuracy_18plus": 0.9302,
+      "age_group_confusion_18plus": [
+        [
+          1642,
+          37
+        ],
+        [
+          99,
+          170
+        ]
+      ]
+    },
+    "onnx_fp32": {
+      "n": 2371,
+      "age_mae": 5.0881,
+      "gender_accuracy": 0.9422,
+      "gender_macro_f1": 0.9421,
+      "gender_confusion": [
+        [
+          1177,
+          63
+        ],
+        [
+          74,
+          1057
+        ]
+      ],
+      "n_18plus": 1948,
+      "age_mae_18plus": 5.5153,
+      "age_group_accuracy_18plus": 0.9302,
+      "age_group_confusion_18plus": [
+        [
+          1642,
+          37
+        ],
+        [
+          99,
+          170
+        ]
+      ]
+    },
+    "onnx_int8": {
+      "n": 2371,
+      "age_mae": 16.3956,
+      "gender_accuracy": 0.617,
+      "gender_macro_f1": 0.5804,
+      "gender_confusion": [
+        [
+          1082,
+          158
+        ],
+        [
+          750,
+          381
+        ]
+      ],
+      "n_18plus": 1948,
+      "age_mae_18plus": 16.4272,
+      "age_group_accuracy_18plus": 0.864,
+      "age_group_confusion_18plus": [
+        [
+          1674,
+          5
+        ],
+        [
+          260,
+          9
+        ]
+      ]
+    }
+  },
+  "latency": {
+    "pytorch_cpu_fp32": {
+      "mean_ms": 7.823,
+      "p50_ms": 8.076,
+      "p95_ms": 9.892,
+      "fps": 127.8
+    },
+    "pytorch_gpu_fp32": {
+      "mean_ms": 5.376,
+      "p50_ms": 4.518,
+      "p95_ms": 11.825,
+      "fps": 186.0
+    },
+    "onnxruntime_cpu_fp32": {
+      "mean_ms": 1.962,
+      "p50_ms": 2.028,
+      "p95_ms": 2.406,
+      "fps": 509.6
+    },
+    "onnxruntime_cpu_int8": {
+      "mean_ms": 3.124,
+      "p50_ms": 1.999,
+      "p95_ms": 11.066,
+      "fps": 320.1
+    }
+  },
+  "onnx_fp32_mb": 4.354,
+  "onnx_int8_mb": 1.474,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+}

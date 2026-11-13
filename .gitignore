@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Browser smoke test (tests/web): installed packages
+node_modules/
+
+# Datasets (never commit images of people)
+data/
+data_dummy/
+
+# Large training artefacts (summaries/metrics JSON + CSV are kept)
+runs/**/*.pt
+runs/**/models/
+
+# Own evaluation photos (privacy) – only anonymised results are committed
+eval_photos/
+
+# Test-set packages for the on-device check (contain dataset images, licence)
+testset*.zip
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

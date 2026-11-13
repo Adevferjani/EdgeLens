@@ -1,0 +1,124 @@
+{
+  "task": "expression",
+  "n_eval": 200,
+  "fp32": {
+    "accuracy": 0.595
+  },
+  "weights_int8_per_channel": {
+    "accuracy": 0.6
+  },
+  "weights_int8_per_tensor": {
+    "accuracy": 0.275
+  },
+  "activations_uint8_all": {
+    "accuracy": 0.01
+  },
+  "single_layer_sensitivity": [
+    {
+      "layer": "features.0.2",
+      "accuracy": 0.155
+    },
+    {
+      "layer": "features.0.0",
+      "accuracy": 0.245
+    },
+    {
+      "layer": "features.11.block.0.0",
+      "accuracy": 0.47
+    },
+    {
+      "layer": "features.2.block.0.0",
+      "accuracy": 0.58
+    },
+    {
+      "layer": "features.2.block.0.2",
+      "accuracy": 0.58
+    },
+    {
+      "layer": "features.11.block.1.0",
+      "accuracy": 0.58
+    },
+    {
+      "layer": "features.9.block.0.0",
+      "accuracy": 0.585
+    },
+    {
+      "layer": "features.2.block.1.0",
+      "accuracy": 0.59
+    },
+    {
+      "layer": "features.2.block.1.2",
+      "accuracy": 0.59
+    },
+    {
+      "layer": "features.4.block.0.2",
+      "accuracy": 0.59
+    }
+  ],
+  "widest_activation_ranges": [
+    {
+      "layer": "features.0.0",
+      "min": -0.38,
+      "max": 119.57,
+      "p0.01": -0.37,
+      "p99.99": 15.44
+    },
+    {
+      "layer": "features.0.2",
+      "min": -0.38,
+      "max": 119.57,
+      "p0.01": -0.37,
+      "p99.99": 15.44
+    },
+    {
+      "layer": "features.12.0",
+      "min": -0.38,
+      "max": 35.66,
+      "p0.01": -0.38,
+      "p99.99": 16.49
+    },
+    {
+      "layer": "features.12.2",
+      "min": -0.38,
+      "max": 35.66,
+      "p0.01": -0.38,
+      "p99.99": 16.49
+    },
+    {
+      "layer": "features.11.block.3.0",
+      "min": -16.13,
+      "max": 14.64,
+      "p0.01": -8.91,
+      "p99.99": 9.91
+    },
+    {
+      "layer": "features.11.block.2.fc2",
+      "min": -15.85,
+      "max": 14.13,
+      "p0.01": -11.79,
+      "p99.99": 8.86
+    }
+  ],
+  "mixed_precision": [
+    {
+      "fp32_layers": 1,
+      "accuracy": 0.01
+    },
+    {
+      "fp32_layers": 2,
+      "accuracy": 0.075
+    },
+    {
+      "fp32_layers": 4,
+      "accuracy": 0.13
+    },
+    {
+      "fp32_layers": 6,
+      "accuracy": 0.185
+    },
+    {
+      "fp32_layers": 10,
+      "accuracy": 0.205
+    }
+  ]
+}

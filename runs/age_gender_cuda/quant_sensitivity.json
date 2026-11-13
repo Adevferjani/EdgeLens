@@ -1,0 +1,133 @@
+{
+  "task": "age_gender",
+  "n_eval": 200,
+  "fp32": {
+    "age_mae": 5.663,
+    "gender_acc": 0.945
+  },
+  "weights_int8_per_channel": {
+    "age_mae": 5.689,
+    "gender_acc": 0.945
+  },
+  "weights_int8_per_tensor": {
+    "age_mae": 15.847,
+    "gender_acc": 0.545
+  },
+  "activations_uint8_all": {
+    "age_mae": 30.707,
+    "gender_acc": 0.47
+  },
+  "single_layer_sensitivity": [
+    {
+      "layer": "features.0.2",
+      "age_mae": 20.239
+    },
+    {
+      "layer": "features.0.0",
+      "age_mae": 16.55
+    },
+    {
+      "layer": "features.11.block.0.0",
+      "age_mae": 14.109
+    },
+    {
+      "layer": "features.9.block.0.0",
+      "age_mae": 12.342
+    },
+    {
+      "layer": "features.11.block.1.0",
+      "age_mae": 7.493
+    },
+    {
+      "layer": "features.2.block.0.0",
+      "age_mae": 6.769
+    },
+    {
+      "layer": "features.2.block.0.2",
+      "age_mae": 6.769
+    },
+    {
+      "layer": "features.7.block.0.0",
+      "age_mae": 6.074
+    },
+    {
+      "layer": "features.12.0",
+      "age_mae": 6.041
+    },
+    {
+      "layer": "features.6.block.1.0",
+      "age_mae": 6.035
+    }
+  ],
+  "widest_activation_ranges": [
+    {
+      "layer": "features.0.0",
+      "min": -0.38,
+      "max": 297.16,
+      "p0.01": -0.37,
+      "p99.99": 55.9
+    },
+    {
+      "layer": "features.0.2",
+      "min": -0.38,
+      "max": 297.16,
+      "p0.01": -0.37,
+      "p99.99": 55.9
+    },
+    {
+      "layer": "features.1.block.2.0",
+      "min": -30.98,
+      "max": 47.15,
+      "p0.01": -14.1,
+      "p99.99": 15.13
+    },
+    {
+      "layer": "features.2.block.0.0",
+      "min": 0.0,
+      "max": 52.47,
+      "p0.01": 0.0,
+      "p99.99": 12.92
+    },
+    {
+      "layer": "features.2.block.0.2",
+      "min": 0.0,
+      "max": 52.47,
+      "p0.01": 0.0,
+      "p99.99": 12.92
+    },
+    {
+      "layer": "features.2.block.2.0",
+      "min": -26.31,
+      "max": 13.99,
+      "p0.01": -14.97,
+      "p99.99": 9.07
+    }
+  ],
+  "mixed_precision": [
+    {
+      "fp32_layers": 1,
+      "age_mae": 30.658,
+      "gender_acc": 0.445
+    },
+    {
+      "fp32_layers": 2,
+      "age_mae": 30.497,
+      "gender_acc": 0.535
+    },
+    {
+      "fp32_layers": 4,
+      "age_mae": 16.751,
+      "gender_acc": 0.85
+    },
+    {
+      "fp32_layers": 6,
+      "age_mae": 13.273,
+      "gender_acc": 0.77
+    },
+    {
+      "fp32_layers": 10,
+      "age_mae": 10.262,
+      "gender_acc": 0.905
+    }
+  ]
+}

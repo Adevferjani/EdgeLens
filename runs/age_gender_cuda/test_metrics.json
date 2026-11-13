@@ -1,0 +1,29 @@
+{
+  "n": 2371,
+  "age_mae": 5.094,
+  "gender_accuracy": 0.9426,
+  "gender_macro_f1": 0.9425,
+  "gender_confusion": [
+    [
+      1177,
+      63
+    ],
+    [
+      73,
+      1058
+    ]
+  ],
+  "n_18plus": 1948,
+  "age_mae_18plus": 5.5141,
+  "age_group_accuracy_18plus": 0.9307,
+  "age_group_confusion_18plus": [
+    [
+      1641,
+      38
+    ],
+    [
+      97,
+      172
+    ]
+  ]
+}

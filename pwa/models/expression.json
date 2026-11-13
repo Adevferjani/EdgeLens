@@ -1,0 +1,49 @@
+{
+  "task": "expression",
+  "files": {
+    "fp32": "expression_fp32.onnx",
+    "int8": "expression_int8.onnx"
+  },
+  "sizes": {
+    "fp32_mb": 4.361,
+    "int8_mb": 1.238
+  },
+  "input": {
+    "name": "input",
+    "shape": [
+      1,
+      3,
+      112,
+      112
+    ],
+    "layout": "NCHW",
+    "color": "RGB",
+    "range": [
+      0,
+      1
+    ]
+  },
+  "outputs": [
+    "probs"
+  ],
+  "trained_epoch": 28,
+  "parity_max_abs_diff": {
+    "probs": 4.76837158203125e-07
+  },
+  "int8_mode": "weight-only INT8 (W8A32)",
+  "labels": [
+    "angry",
+    "disgust",
+    "fear",
+    "happy",
+    "sad",
+    "surprise",
+    "neutral"
+  ],
+  "crop": {
+    "scale": 0.9652,
+    "shift_x": -0.0022,
+    "shift_y": -0.0121,
+    "source": "training/calibrate_crop.py"
+  }
+}
